@@ -9,6 +9,7 @@ abstract class Routes {
   static const SEARCH_PAGE = _Paths.SEARCH_PAGE;
   static const FAVORITE_PAGE = _Paths.FAVORITE_PAGE;
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
+  static const ADD_BOOKS = _Paths.ADD_BOOKS;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const SEARCH_PAGE = '/search-page';
   static const FAVORITE_PAGE = '/favorite-page';
   static const PROFILE_PAGE = '/profile-page';
+  static const ADD_BOOKS = '/add-books';
 }

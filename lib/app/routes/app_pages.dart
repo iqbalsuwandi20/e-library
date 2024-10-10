@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_books/bindings/add_books_binding.dart';
+import '../modules/add_books/views/add_books_view.dart';
 import '../modules/explore_page/bindings/explore_page_binding.dart';
 import '../modules/explore_page/views/explore_page_view.dart';
 import '../modules/favorite_page/bindings/favorite_page_binding.dart';
@@ -33,7 +35,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EXPLORE_PAGE,
-      page: () => const ExplorePageView(),
+      page: () => ExplorePageView(),
       binding: ExplorePageBinding(),
     ),
     GetPage(
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.PROFILE_PAGE,
       page: () => const ProfilePageView(),
       binding: ProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_BOOKS,
+      page: () => const AddBooksView(),
+      binding: AddBooksBinding(),
     ),
   ];
 }

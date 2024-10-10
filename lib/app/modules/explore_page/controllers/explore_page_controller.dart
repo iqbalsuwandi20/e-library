@@ -31,4 +31,13 @@ class ExplorePageController extends GetxController {
     book.isFavorite = newStatus;
     books.refresh();
   }
+
+  Future<void> deleteBook(int id) async {
+    try {
+      await DatabaseHelper().deleteBook(id);
+      books.removeWhere((book) => book.id == id);
+    } catch (e) {
+      throw Exception("Failed to delete book: $e");
+    }
+  }
 }

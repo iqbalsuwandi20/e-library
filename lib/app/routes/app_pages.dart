@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/add_books/bindings/add_books_binding.dart';
 import '../modules/add_books/views/add_books_view.dart';
+import '../modules/edit_books/bindings/edit_books_binding.dart';
+import '../modules/edit_books/views/edit_books_view.dart';
 import '../modules/explore_page/bindings/explore_page_binding.dart';
 import '../modules/explore_page/views/explore_page_view.dart';
 import '../modules/favorite_page/bindings/favorite_page_binding.dart';
@@ -66,6 +68,11 @@ class AppPages {
         pdfPath: '',
       ),
       binding: PdfViewerBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_BOOKS,
+      page: () => EditBooksView(),
+      binding: EditBooksBinding(),
     ),
   ];
 }

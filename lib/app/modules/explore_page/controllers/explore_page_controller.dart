@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:library_app/app/routes/app_pages.dart';
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
 
@@ -46,5 +47,12 @@ class ExplorePageController extends GetxController {
         Get.back(result: false); // Kembali dengan hasil false
       },
     );
+  }
+
+  Future<void> editBook(BookModel book) async {
+    // Navigasi ke halaman edit dengan mengirimkan objek buku
+    Get.toNamed(Routes.EDIT_BOOKS,
+        arguments:
+            book); // Pastikan untuk mengganti Routes.EDIT_BOOK sesuai rute edit yang ada
   }
 }

@@ -11,6 +11,7 @@ abstract class Routes {
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
   static const ADD_BOOKS = _Paths.ADD_BOOKS;
   static const PDF_VIEWER = _Paths.PDF_VIEWER;
+  static const EDIT_BOOKS = _Paths.EDIT_BOOKS;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const PROFILE_PAGE = '/profile-page';
   static const ADD_BOOKS = '/add-books';
   static const PDF_VIEWER = '/pdf-viewer';
+  static const EDIT_BOOKS = '/edit-books';
 }

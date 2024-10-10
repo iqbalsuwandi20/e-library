@@ -15,7 +15,6 @@ class ExplorePageView extends GetView<ExplorePageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        // Menggunakan Obx untuk memantau perubahan
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         } else if (controller.books.isEmpty) {
@@ -26,21 +25,41 @@ class ExplorePageView extends GetView<ExplorePageController> {
             itemBuilder: (context, index) {
               final book = controller.books[index];
               return Dismissible(
-                key: Key(book.id.toString()), // Kunci unik untuk item
+                key: Key(book.id.toString()),
                 background: Container(
-                    color: Colors.red), // Latar belakang saat menggeser
-                direction: DismissDirection.endToStart, // Arah penggeseran
+                  color: Colors.red,
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                ),
+                secondaryBackground: Container(
+                  color: Colors.blue, // Warna untuk latar belakang edit
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: const Icon(Icons.edit, color: Colors.white),
+                  ),
+                ),
+                direction: DismissDirection.horizontal, // Arah penggeseran
                 confirmDismiss: (direction) async {
-                  // Konfirmasi sebelum menghapus
-                  return await controller.confirmDelete(
-                      book.id!); // Panggil konfirmasi penghapusan
+                  if (direction == DismissDirection.endToStart) {
+                    // Konfirmasi sebelum menghapus
+                    return await controller.confirmDelete(book.id!);
+                  } else if (direction == DismissDirection.startToEnd) {
+                    // Mengedit buku
+                    controller.editBook(book); // Panggil fungsi edit
+                    return false; // Kembalikan false agar item tidak dihapus
+                  }
+                  return false; // Default return
                 },
                 onDismissed: (direction) {
-                  // Hapus dari database
-                  controller.deleteBook(book.id!); // Panggil fungsi hapus
-                  // Tampilkan snackbar untuk konfirmasi
-                  Get.snackbar(
-                      'Buku Terhapus', 'Buku ${book.title} telah dihapus');
+                  if (direction == DismissDirection.endToStart) {
+                    controller.deleteBook(book.id!);
+                    Get.snackbar(
+                        'Buku Terhapus', 'Buku ${book.title} telah dihapus');
+                  }
                 },
                 child: Card(
                   margin:
@@ -71,7 +90,6 @@ class ExplorePageView extends GetView<ExplorePageController> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(Routes.ADD_BOOKS)?.then((_) {
-            // Memuat ulang daftar buku setelah kembali dari halaman tambah buku
             controller.fetchBooks();
           });
         },

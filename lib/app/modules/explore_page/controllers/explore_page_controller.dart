@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
+import '../../favorite_page/controllers/favorite_page_controller.dart';
 
 class ExplorePageController extends GetxController {
   RxBool isLoading = false.obs;
@@ -30,6 +31,9 @@ class ExplorePageController extends GetxController {
     await DatabaseHelper().updateFavoriteStatus(book.id!, newStatus);
     book.isFavorite = newStatus;
     books.refresh();
+
+    // Refresh the favorite page controller after updating the status
+    Get.find<FavoritePageController>().loadFavoriteBooks();
   }
 
   Future<void> deleteBook(int id) async {

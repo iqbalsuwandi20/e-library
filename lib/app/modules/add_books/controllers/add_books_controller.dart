@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
+import '../../explore_page/controllers/explore_page_controller.dart'; // Tambahkan ini untuk memanggil controller Explore
 
 class AddBooksController extends GetxController {
   TextEditingController titleC = TextEditingController();
@@ -47,6 +48,10 @@ class AddBooksController extends GetxController {
         );
 
         await DatabaseHelper().insertBook(book);
+
+        // Fetch ulang buku di ExplorePageController
+        ExplorePageController exploreController = Get.find();
+        await exploreController.fetchBooks(); // Tambahkan ini
 
         Get.back();
 

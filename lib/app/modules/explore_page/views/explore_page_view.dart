@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:library_app/app/routes/app_pages.dart';
+import 'package:lottie/lottie.dart';
+
 import '../../pdf_viewer/views/pdf_viewer_view.dart';
 import '../controllers/explore_page_controller.dart';
 
@@ -63,6 +66,13 @@ class ExplorePageView extends StatelessWidget {
           },
         );
       }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.ADD_BOOKS);
+        },
+        backgroundColor: Colors.blue[700],
+        child: Lottie.asset("assets/lotties/add.json"),
+      ),
     );
   }
 }

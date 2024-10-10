@@ -1,10 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:file_picker/file_picker.dart';
-
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
-import '../../explore_page/controllers/explore_page_controller.dart'; // Tambahkan ini untuk memanggil controller Explore
+import '../../explore_page/controllers/explore_page_controller.dart';
+import '../../profile_page/controllers/profile_page_controller.dart'; // Import controller profil
 
 class AddBooksController extends GetxController {
   TextEditingController titleC = TextEditingController();
@@ -52,6 +52,10 @@ class AddBooksController extends GetxController {
         // Fetch ulang buku di ExplorePageController
         ExplorePageController exploreController = Get.find();
         await exploreController.fetchBooks(); // Tambahkan ini
+
+        // Memperbarui data profil setelah menambahkan buku
+        ProfilePageController profileController = Get.find();
+        profileController.loadProfileData(); // Tambahkan ini
 
         Get.back();
 

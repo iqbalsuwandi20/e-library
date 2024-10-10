@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart'; // Tambahkan import ini
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
 
 import '../controllers/pdf_viewer_controller.dart';
@@ -14,11 +14,16 @@ class PdfViewerView extends GetView<PdfViewerController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PDF Viewer'),
+        title: const Text(
+          'BOOK VIEW',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.blue[700],
+        leading: SizedBox(),
       ),
       body: PDFView(
-        filePath: pdfPath, // Tampilkan PDF berdasarkan path
+        filePath: pdfPath,
       ),
     );
   }

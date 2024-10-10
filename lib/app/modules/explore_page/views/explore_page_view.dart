@@ -25,24 +25,43 @@ class ExplorePageView extends GetView<ExplorePageController> {
             itemCount: controller.books.length,
             itemBuilder: (context, index) {
               final book = controller.books[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: ListTile(
-                  title: Text(book.title,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Author: ${book.author}"),
-                      Text("Description: ${book.description}"),
-                      Text("Email: ${book.email}"),
-                      const SizedBox(height: 4),
-                      Text("PDF: ${book.pdfPath.split('/').last}"),
-                    ],
+              return Dismissible(
+                key: Key(book.id.toString()), // Kunci unik untuk item
+                background: Container(
+                    color: Colors.red), // Latar belakang saat menggeser
+                direction: DismissDirection.endToStart, // Arah penggeseran
+                confirmDismiss: (direction) async {
+                  // Konfirmasi sebelum menghapus
+                  return await controller.confirmDelete(
+                      book.id!); // Panggil konfirmasi penghapusan
+                },
+                onDismissed: (direction) {
+                  // Hapus dari database
+                  controller.deleteBook(book.id!); // Panggil fungsi hapus
+                  // Tampilkan snackbar untuk konfirmasi
+                  Get.snackbar(
+                      'Buku Terhapus', 'Buku ${book.title} telah dihapus');
+                },
+                child: Card(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  child: ListTile(
+                    title: Text(book.title,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("Author: ${book.author}"),
+                        Text("Description: ${book.description}"),
+                        Text("Email: ${book.email}"),
+                        const SizedBox(height: 4),
+                        Text("PDF: ${book.pdfPath.split('/').last}"),
+                      ],
+                    ),
+                    onTap: () {
+                      Get.to(() => PdfViewerView(pdfPath: book.pdfPath));
+                    },
                   ),
-                  onTap: () {
-                    Get.to(() => PdfViewerView(pdfPath: book.pdfPath));
-                  },
                 ),
               );
             },

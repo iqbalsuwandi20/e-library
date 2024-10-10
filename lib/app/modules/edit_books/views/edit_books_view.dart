@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controllers/edit_books_controller.dart';
 
 class EditBooksView extends GetView<EditBooksController> {
@@ -7,19 +8,17 @@ class EditBooksView extends GetView<EditBooksController> {
 
   @override
   Widget build(BuildContext context) {
-    // Mengambil argumen buku yang akan diedit
     final book = Get.arguments;
 
-    // Mengisi controller dengan data buku yang diterima
     controller.titleC.text = book.title;
-    controller.nameC.text = book.author; // Ganti dari book.name ke book.author
+    controller.nameC.text = book.author;
     controller.descriptionC.text = book.description;
     controller.emailC.text = book.email;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'EDIT BOOKS',
+          'UBAH BUKU',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -39,7 +38,7 @@ class EditBooksView extends GetView<EditBooksController> {
                 Icons.title_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Book Title",
+              labelText: "Judul Buku",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -55,7 +54,7 @@ class EditBooksView extends GetView<EditBooksController> {
                 Icons.person_2_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Your Name",
+              labelText: "Nama Anda",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -71,7 +70,7 @@ class EditBooksView extends GetView<EditBooksController> {
                 Icons.description_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Brief Description of the Book",
+              labelText: "Deskripsi Singkat tentang Buku",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -89,7 +88,7 @@ class EditBooksView extends GetView<EditBooksController> {
                 Icons.email_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Your Email",
+              labelText: "Email Anda",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -106,8 +105,8 @@ class EditBooksView extends GetView<EditBooksController> {
                   },
                   child: Text(
                     controller.isLoading.isFalse
-                        ? "CLICK HERE TO UPLOAD PDF"
-                        : "LOADING..",
+                        ? "KLIK DISINI UNTUK UNGGAH PDF"
+                        : "TUNGGU YA..",
                     style: TextStyle(
                       color: Colors.blue[700],
                       fontWeight: FontWeight.bold,
@@ -116,7 +115,7 @@ class EditBooksView extends GetView<EditBooksController> {
                 ),
                 if (controller.pdfPath.value.isNotEmpty)
                   Text(
-                    'Uploaded PDF: ${controller.pdfPath.value.split('/').last}',
+                    'Mengunggah PDF: ${controller.pdfPath.value.split('/').last}',
                     style: TextStyle(
                         color: Colors.blue[700], fontWeight: FontWeight.bold),
                   ),
@@ -134,7 +133,7 @@ class EditBooksView extends GetView<EditBooksController> {
               style:
                   ElevatedButton.styleFrom(backgroundColor: Colors.blue[700]),
               child: Text(
-                controller.isLoading.isFalse ? "EDIT BOOK" : "LOADING..",
+                controller.isLoading.isFalse ? "MENGUBAH BUKU" : "TUNGGU YA..",
                 style: TextStyle(color: Colors.white),
               ),
             );

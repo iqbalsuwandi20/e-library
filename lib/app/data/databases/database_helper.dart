@@ -70,7 +70,6 @@ class DatabaseHelper {
     );
   }
 
-  // Update status favorit buku berdasarkan ID
   Future<void> updateFavoriteStatus(int id, bool isFavorite) async {
     final db = await database;
     await db.update(
@@ -81,13 +80,12 @@ class DatabaseHelper {
     );
   }
 
-  // Mendapatkan buku yang difavoritkan
   Future<List<BookModel>> getFavoriteBooks() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'books',
       where: 'isFavorite = ?',
-      whereArgs: [1], // Mengambil buku yang difavoritkan
+      whereArgs: [1],
     );
 
     return List.generate(maps.length, (i) {

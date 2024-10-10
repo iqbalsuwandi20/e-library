@@ -26,10 +26,10 @@ class HomeView extends GetView<HomeController> {
       bottomNavigationBar: ConvexAppBar(
         backgroundColor: Colors.blue[700],
         items: const [
-          TabItem(icon: Icons.explore, title: 'Explore'),
-          TabItem(icon: Icons.search, title: 'Search'),
-          TabItem(icon: Icons.favorite, title: 'Favorite'),
-          TabItem(icon: Icons.people, title: 'Profile'),
+          TabItem(icon: Icons.explore, title: 'Jelajahi'),
+          TabItem(icon: Icons.search, title: 'Pencarian'),
+          TabItem(icon: Icons.favorite, title: 'Favorit'),
+          TabItem(icon: Icons.people, title: 'Profil'),
         ],
         initialActiveIndex: controller.selectedIndex.value,
         onTap: (int index) {

@@ -32,7 +32,6 @@ class ExplorePageController extends GetxController {
     book.isFavorite = newStatus;
     books.refresh();
 
-    // Refresh the favorite page controller after updating the status
     Get.find<FavoritePageController>().loadFavoriteBooks();
   }
 
@@ -41,7 +40,7 @@ class ExplorePageController extends GetxController {
       await DatabaseHelper().deleteBook(id);
       books.removeWhere((book) => book.id == id);
     } catch (e) {
-      throw Exception("Failed to delete book: $e");
+      throw Exception("Gagal untuk menghapus buku: $e");
     }
   }
 }

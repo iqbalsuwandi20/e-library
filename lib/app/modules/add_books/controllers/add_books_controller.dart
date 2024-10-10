@@ -1,10 +1,11 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
 import '../../explore_page/controllers/explore_page_controller.dart';
-import '../../profile_page/controllers/profile_page_controller.dart'; // Import controller profil
+import '../../profile_page/controllers/profile_page_controller.dart';
 
 class AddBooksController extends GetxController {
   TextEditingController titleC = TextEditingController();
@@ -25,8 +26,13 @@ class AddBooksController extends GetxController {
       if (result.files.single.extension == 'pdf') {
         pdfPath.value = result.files.single.path!;
       } else {
-        Get.snackbar("Error", "Hanya file PDF yang bisa diupload.",
-            snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar(
+          "TERJADI KESALAHAN",
+          "Hanya file PDF yang bisa diunggah.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red[700],
+          colorText: Colors.white,
+        );
       }
     }
   }
@@ -49,21 +55,28 @@ class AddBooksController extends GetxController {
 
         await DatabaseHelper().insertBook(book);
 
-        // Fetch ulang buku di ExplorePageController
         ExplorePageController exploreController = Get.find();
-        await exploreController.fetchBooks(); // Tambahkan ini
+        await exploreController.fetchBooks();
 
-        // Memperbarui data profil setelah menambahkan buku
         ProfilePageController profileController = Get.find();
-        profileController.loadProfileData(); // Tambahkan ini
+        profileController.loadProfileData();
 
         Get.back();
 
-        Get.snackbar("Success", "Book added successfully",
-            snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar(
+          "BERHASIL",
+          "Buku sukses di unggah.",
+          backgroundColor: Colors.green[700],
+          colorText: Colors.white,
+        );
       } catch (e) {
-        Get.snackbar("Error", "Failed to add book: $e",
-            snackPosition: SnackPosition.BOTTOM);
+        Get.snackbar(
+          "TERJADI KESALAHAN",
+          "Gagal mengunggah buku: $e",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red[700],
+          colorText: Colors.white,
+        );
       } finally {
         isLoading.value = false;
 
@@ -74,8 +87,13 @@ class AddBooksController extends GetxController {
         pdfPath.value = '';
       }
     } else {
-      Get.snackbar("Error", "Please fill all fields and upload a PDF",
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar(
+        "TERJADI KESALAHAN",
+        "Harap isi semua kolom dan unggah PDF",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red[700],
+        colorText: Colors.white,
+      );
     }
   }
 }

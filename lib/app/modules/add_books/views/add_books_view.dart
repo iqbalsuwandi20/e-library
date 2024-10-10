@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/add_books_controller.dart';
@@ -12,7 +11,7 @@ class AddBooksView extends GetView<AddBooksController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'ADD BOOKS',
+          'TAMBAH BUKU',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -32,7 +31,7 @@ class AddBooksView extends GetView<AddBooksController> {
                 Icons.title_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Book Title",
+              labelText: "Judul Buku",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -48,7 +47,7 @@ class AddBooksView extends GetView<AddBooksController> {
                 Icons.person_2_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Your Name",
+              labelText: "Nama Anda",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -64,7 +63,7 @@ class AddBooksView extends GetView<AddBooksController> {
                 Icons.description_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Brief Description of the Book",
+              labelText: "Deskripsi Singkat tentang Buku",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -81,7 +80,7 @@ class AddBooksView extends GetView<AddBooksController> {
                 Icons.email_outlined,
                 color: Colors.blue[700],
               ),
-              labelText: "Your Email",
+              labelText: "Email Anda",
               labelStyle: TextStyle(color: Colors.blue[700]),
               border: OutlineInputBorder(),
             ),
@@ -98,8 +97,8 @@ class AddBooksView extends GetView<AddBooksController> {
                   },
                   child: Text(
                     controller.isLoading.isFalse
-                        ? "CLICK HERE TO UPLOAD PDF"
-                        : "LOADING..",
+                        ? "KLIK INI UNTUK UNGGAH PDF"
+                        : "TUNGGU YA..",
                     style: TextStyle(
                       color: Colors.blue[700],
                       fontWeight: FontWeight.bold,
@@ -108,7 +107,7 @@ class AddBooksView extends GetView<AddBooksController> {
                 ),
                 if (controller.pdfPath.value.isNotEmpty)
                   Text(
-                    'Uploaded PDF: ${controller.pdfPath.value.split('/').last}',
+                    'Unggah PDF: ${controller.pdfPath.value.split('/').last}',
                     style: TextStyle(
                         color: Colors.blue[700], fontWeight: FontWeight.bold),
                   ),
@@ -126,7 +125,7 @@ class AddBooksView extends GetView<AddBooksController> {
               style:
                   ElevatedButton.styleFrom(backgroundColor: Colors.blue[700]),
               child: Text(
-                controller.isLoading.isFalse ? "ADD BOOK" : "LOADING..",
+                controller.isLoading.isFalse ? "TAMBAH BUKU" : "TUNGGU YA..",
                 style: TextStyle(color: Colors.white),
               ),
             );

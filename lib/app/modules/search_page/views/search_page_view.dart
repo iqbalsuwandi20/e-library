@@ -5,7 +5,6 @@ import '../../pdf_viewer/views/pdf_viewer_view.dart';
 import '../controllers/search_page_controller.dart';
 
 class SearchPageView extends GetView<SearchPageController> {
-  // Memastikan controller sudah di-inject
   SearchPageView({super.key}) {
     Get.put(SearchPageController());
   }
@@ -13,20 +12,16 @@ class SearchPageView extends GetView<SearchPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Books'),
-      ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(30),
             child: TextField(
               onChanged: (value) {
-                controller.searchBooks(
-                    value); // Lakukan pencarian setiap kali input berubah
+                controller.searchBooks(value);
               },
               decoration: const InputDecoration(
-                labelText: 'Search by title',
+                labelText: 'Cari berdasarkan judul',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -34,9 +29,13 @@ class SearchPageView extends GetView<SearchPageController> {
           Expanded(
             child: Obx(() {
               if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return Center(
+                    child: CircularProgressIndicator(
+                  backgroundColor: Colors.blue[700],
+                ));
               } else if (controller.searchResults.isEmpty) {
-                return const Center(child: Text("No results found."));
+                return const Center(
+                    child: Text("Tidak ada hasil yang ditemukan."));
               } else {
                 return ListView.builder(
                   itemCount: controller.searchResults.length,
@@ -60,7 +59,6 @@ class SearchPageView extends GetView<SearchPageController> {
                           ],
                         ),
                         onTap: () {
-                          // Navigasi ke PDF Viewer
                           Get.to(() => PdfViewerView(pdfPath: book.pdfPath));
                         },
                       ),

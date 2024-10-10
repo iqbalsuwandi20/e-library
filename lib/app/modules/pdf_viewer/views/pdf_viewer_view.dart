@@ -5,32 +5,13 @@ import 'package:get/get.dart';
 import '../controllers/pdf_viewer_controller.dart';
 
 class PdfViewerView extends GetView<PdfViewerController> {
-  final String pdfPath; // Tambahkan variabel untuk menyimpan path PDF
+  final String pdfPath;
 
-  const PdfViewerView(
-      {super.key, required this.pdfPath}); // Tambahkan parameter ke konstruktor
+  const PdfViewerView({super.key, required this.pdfPath});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'BOOK VIEW',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[700],
-        leading: SizedBox(),
-        actions: [
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Image.asset(
-              "assets/icons/like.png",
-              height: 30,
-            ),
-          ),
-        ],
-      ),
       body: PDFView(
         filePath: pdfPath,
       ),

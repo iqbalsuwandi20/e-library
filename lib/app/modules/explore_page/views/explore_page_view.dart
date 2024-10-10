@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:library_app/app/routes/app_pages.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../pdf_viewer/views/pdf_viewer_view.dart';
 import '../controllers/explore_page_controller.dart';
 
@@ -14,17 +14,16 @@ class ExplorePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Explore Books'),
-        centerTitle: true,
-      ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            backgroundColor: Colors.blue[700],
+          ));
         }
 
         if (controller.books.isEmpty) {
-          return const Center(child: Text('No books found'));
+          return const Center(child: Text('Buku-buku tidak ditemukan'));
         }
 
         return ListView.builder(
@@ -35,26 +34,30 @@ class ExplorePageView extends StatelessWidget {
             return Dismissible(
               key: Key(book.id.toString()),
               background: Container(
-                color: Colors.red,
+                color: Colors.green,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Icon(Icons.delete, color: Colors.white),
+                child: const Icon(Icons.mode_edit_outline_outlined,
+                    color: Colors.white),
               ),
               secondaryBackground: Container(
-                color: Colors.blue,
+                color: Colors.red,
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: const Icon(Icons.edit, color: Colors.white),
+                child: const Icon(Icons.delete_forever_outlined,
+                    color: Colors.white),
               ),
               onDismissed: (direction) async {
                 if (direction == DismissDirection.endToStart) {
-                  // Menghapus buku jika swipe ke kanan (endToStart)
-                  controller.books.removeAt(index); // Segera hapus dari list
+                  controller.books.removeAt(index);
                   await controller.deleteBook(book.id!);
-                  Get.snackbar("Success", "Book deleted successfully",
-                      snackPosition: SnackPosition.BOTTOM);
+                  Get.snackbar(
+                    "BERHASIL",
+                    "Buku berhasil di hapus.",
+                    backgroundColor: Colors.green[700],
+                    colorText: Colors.white,
+                  );
                 } else if (direction == DismissDirection.startToEnd) {
-                  // Mengedit buku jika swipe ke kiri (startToEnd)
                   Get.toNamed(Routes.EDIT_BOOKS, arguments: book);
                 }
               },

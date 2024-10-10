@@ -18,15 +18,18 @@ class ProfilePageController extends GetxController {
     isLoading.value = true;
     List<BookModel> books = await DatabaseHelper().getBooks();
 
-    // Ambil data pertama dari database sebagai contoh
     if (books.isNotEmpty) {
       userName.value = books.first.author;
       userEmail.value = books.first.email;
     } else {
-      userName.value = "Unknown";
-      userEmail.value = "unknown@example.com";
+      userName.value = "Tidak diketahui";
+      userEmail.value = "tidakdiketahui@gmail.com";
     }
 
     isLoading.value = false;
+  }
+
+  String getAvatarUrl() {
+    return "https://ui-avatars.com/api/?name=${userName.value}+${userEmail.value}"; // Menghasilkan URL avatar
   }
 }

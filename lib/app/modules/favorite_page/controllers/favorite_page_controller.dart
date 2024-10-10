@@ -16,18 +16,16 @@ class FavoritePageController extends GetxController {
   void loadFavoriteBooks() async {
     isLoading.value = true;
     try {
-      favoriteBooks.value =
-          await DatabaseHelper().getFavoriteBooks(); // Mendapatkan buku favorit
+      favoriteBooks.value = await DatabaseHelper().getFavoriteBooks();
     } catch (e) {
-      print("Error loading favorite books: $e");
+      print("Kesalahan memuat buku favorit: $e");
     } finally {
       isLoading.value = false;
     }
   }
 
   Future<void> removeFavorite(BookModel book) async {
-    await DatabaseHelper()
-        .updateFavoriteStatus(book.id!, false); // Hapus dari favorit
-    favoriteBooks.remove(book); // Update daftar lokal
+    await DatabaseHelper().updateFavoriteStatus(book.id!, false);
+    favoriteBooks.remove(book);
   }
 }

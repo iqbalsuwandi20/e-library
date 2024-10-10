@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends StatelessWidget {
@@ -7,7 +9,6 @@ class ProfilePageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Inisialisasi controller menggunakan Get.put
     final ProfilePageController controller = Get.put(ProfilePageController());
 
     return Scaffold(
@@ -16,8 +17,6 @@ class ProfilePageView extends StatelessWidget {
           if (controller.isLoading.value) {
             return const CircularProgressIndicator();
           } else {
-            String avatarUrl =
-                "https://ui-avatars.com/api/?name=${controller.userName.value}+${controller.userEmail.value}";
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -26,7 +25,8 @@ class ProfilePageView extends StatelessWidget {
                     width: 100,
                     height: 100,
                     child: Image.network(
-                      avatarUrl,
+                      controller
+                          .getAvatarUrl(), // Menggunakan URL dari controller
                       fit: BoxFit.cover,
                     ),
                   ),

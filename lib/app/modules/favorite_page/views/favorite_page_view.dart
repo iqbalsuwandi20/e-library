@@ -12,17 +12,17 @@ class FavoritePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Favorite Books'),
-        centerTitle: true,
-      ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return Center(
+              child: CircularProgressIndicator(
+            backgroundColor: Colors.blue[700],
+          ));
         }
 
         if (controller.favoriteBooks.isEmpty) {
-          return const Center(child: Text('No favorite books found.'));
+          return const Center(
+              child: Text('Tidak dapat menemukan buku favorit anda.'));
         }
 
         return ListView.builder(
@@ -50,7 +50,7 @@ class FavoritePageView extends StatelessWidget {
                 trailing: IconButton(
                   icon: const Icon(Icons.delete, color: Colors.red),
                   onPressed: () {
-                    controller.removeFavorite(book); // Menghapus dari favorit
+                    controller.removeFavorite(book);
                   },
                 ),
                 onTap: () {

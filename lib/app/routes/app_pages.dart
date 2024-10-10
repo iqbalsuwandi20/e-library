@@ -8,6 +8,8 @@ import '../modules/favorite_page/bindings/favorite_page_binding.dart';
 import '../modules/favorite_page/views/favorite_page_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/pdf_viewer/bindings/pdf_viewer_binding.dart';
+import '../modules/pdf_viewer/views/pdf_viewer_view.dart';
 import '../modules/profile_page/bindings/profile_page_binding.dart';
 import '../modules/profile_page/views/profile_page_view.dart';
 import '../modules/search_page/bindings/search_page_binding.dart';
@@ -57,6 +59,13 @@ class AppPages {
       name: _Paths.ADD_BOOKS,
       page: () => const AddBooksView(),
       binding: AddBooksBinding(),
+    ),
+    GetPage(
+      name: _Paths.PDF_VIEWER,
+      page: () => PdfViewerView(
+        pdfPath: '',
+      ),
+      binding: PdfViewerBinding(),
     ),
   ];
 }

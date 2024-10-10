@@ -1,23 +1,30 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../explore_page/views/explore_page_view.dart';
+import '../../favorite_page/views/favorite_page_view.dart';
+import '../../profile_page/views/profile_page_view.dart';
+import '../../search_page/views/search_page_view.dart';
+
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  var selectedIndex = 0.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+  void changeTabIndex(int index) {
+    selectedIndex.value = index;
   }
 
-  @override
-  void onReady() {
-    super.onReady();
+  Widget getCurrentView() {
+    switch (selectedIndex.value) {
+      case 0:
+        return ExplorePageView();
+      case 1:
+        return SearchPageView();
+      case 2:
+        return FavoritePageView();
+      case 3:
+        return ProfilePageView();
+      default:
+        return ExplorePageView();
+    }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

@@ -1,23 +1,47 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/profile_page_controller.dart';
 
-class ProfilePageView extends GetView<ProfilePageController> {
+class ProfilePageView extends StatelessWidget {
   const ProfilePageView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    // Inisialisasi controller menggunakan Get.put
+    final ProfilePageController controller = Get.put(ProfilePageController());
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ProfilePageView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'ProfilePageView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Center(
+        child: Obx(() {
+          if (controller.isLoading.value) {
+            return const CircularProgressIndicator();
+          } else {
+            String avatarUrl =
+                "https://ui-avatars.com/api/?name=${controller.userName.value}+${controller.userEmail.value}";
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ClipOval(
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.network(
+                      avatarUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(controller.userName.value,
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Text(controller.userEmail.value,
+                    style: const TextStyle(fontSize: 14)),
+              ],
+            );
+          }
+        }),
       ),
     );
   }

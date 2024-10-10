@@ -1,23 +1,32 @@
 import 'package:get/get.dart';
 
-class ProfilePageController extends GetxController {
-  //TODO: Implement ProfilePageController
+import '../../../data/databases/database_helper.dart';
+import '../../../data/models/book_model.dart';
 
-  final count = 0.obs;
+class ProfilePageController extends GetxController {
+  RxBool isLoading = false.obs;
+  RxString userName = ''.obs;
+  RxString userEmail = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
+    loadProfileData();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  void loadProfileData() async {
+    isLoading.value = true;
+    List<BookModel> books = await DatabaseHelper().getBooks();
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+    // Ambil data pertama dari database sebagai contoh
+    if (books.isNotEmpty) {
+      userName.value = books.first.author;
+      userEmail.value = books.first.email;
+    } else {
+      userName.value = "Unknown";
+      userEmail.value = "unknown@example.com";
+    }
 
-  void increment() => count.value++;
+    isLoading.value = false;
+  }
 }

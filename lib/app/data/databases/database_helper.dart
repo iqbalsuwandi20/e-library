@@ -20,7 +20,7 @@ class DatabaseHelper {
     String path = join(await getDatabasesPath(), 'books.db');
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: (db, version) {
         return db.execute('''
           CREATE TABLE books(
@@ -29,9 +29,16 @@ class DatabaseHelper {
             author TEXT,
             email TEXT,
             pdfPath TEXT,
-            description TEXT
+            description TEXT,
+            isFavorite INTEGER DEFAULT 0
           )
         ''');
+      },
+      onUpgrade: (db, oldVersion, newVersion) {
+        if (oldVersion < 2) {
+          db.execute(
+              'ALTER TABLE books ADD COLUMN isFavorite INTEGER DEFAULT 0');
+        }
       },
     );
   }
@@ -61,5 +68,30 @@ class DatabaseHelper {
       where: 'id = ?',
       whereArgs: [id],
     );
+  }
+
+  // Update status favorit buku berdasarkan ID
+  Future<void> updateFavoriteStatus(int id, bool isFavorite) async {
+    final db = await database;
+    await db.update(
+      'books',
+      {'isFavorite': isFavorite ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
+  // Mendapatkan buku yang difavoritkan
+  Future<List<BookModel>> getFavoriteBooks() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'books',
+      where: 'isFavorite = ?',
+      whereArgs: [1], // Mengambil buku yang difavoritkan
+    );
+
+    return List.generate(maps.length, (i) {
+      return BookModel.fromMap(maps[i]);
+    });
   }
 }

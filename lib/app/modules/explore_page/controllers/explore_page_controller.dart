@@ -1,58 +1,34 @@
 import 'package:get/get.dart';
-import 'package:library_app/app/routes/app_pages.dart';
+
 import '../../../data/databases/database_helper.dart';
 import '../../../data/models/book_model.dart';
 
 class ExplorePageController extends GetxController {
   RxBool isLoading = false.obs;
-  RxList<BookModel> books = <BookModel>[].obs; // Menyimpan daftar buku
+  RxList<BookModel> books = <BookModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchBooks(); // Memuat data buku saat controller diinisialisasi
+    fetchBooks();
   }
 
   Future<List<BookModel>> fetchBooks() async {
     isLoading.value = true;
     try {
-      books.value =
-          await DatabaseHelper().getBooks(); // Ambil buku dari database
-      return books; // Kembalikan daftar buku
+      books.value = await DatabaseHelper().getBooks();
+      return books;
     } catch (e) {
-      // Tangani kesalahan jika perlu
       throw Exception("Failed to fetch books: $e");
     } finally {
-      isLoading.value = false; // Set loading false
+      isLoading.value = false;
     }
   }
 
-  Future<void> deleteBook(int id) async {
-    await DatabaseHelper().deleteBook(id); // Hapus dari database
-    books.removeWhere(
-        (book) => book.id == id); // Hapus dari daftar di controller
-  }
-
-  Future<bool?> confirmDelete(int id) async {
-    // Konfirmasi penghapusan
-    return await Get.defaultDialog<bool>(
-      title: 'Konfirmasi',
-      middleText: 'Apakah Anda yakin ingin menghapus buku ini?',
-      textConfirm: 'Hapus',
-      textCancel: 'Batal',
-      onConfirm: () {
-        Get.back(result: true); // Kembali dengan hasil true
-      },
-      onCancel: () {
-        Get.back(result: false); // Kembali dengan hasil false
-      },
-    );
-  }
-
-  Future<void> editBook(BookModel book) async {
-    // Navigasi ke halaman edit dengan mengirimkan objek buku
-    Get.toNamed(Routes.EDIT_BOOKS,
-        arguments:
-            book); // Pastikan untuk mengganti Routes.EDIT_BOOK sesuai rute edit yang ada
+  Future<void> toggleFavorite(BookModel book) async {
+    final newStatus = !book.isFavorite;
+    await DatabaseHelper().updateFavoriteStatus(book.id!, newStatus);
+    book.isFavorite = newStatus;
+    books.refresh();
   }
 }

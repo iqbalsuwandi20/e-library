@@ -49,7 +49,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.FAVORITE_PAGE,
-      page: () => const FavoritePageView(),
+      page: () => FavoritePageView(),
       binding: FavoritePageBinding(),
     ),
     GetPage(

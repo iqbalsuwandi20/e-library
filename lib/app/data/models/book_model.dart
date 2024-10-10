@@ -5,6 +5,7 @@ class BookModel {
   final String email;
   final String pdfPath;
   final String description;
+  bool isFavorite;
 
   BookModel({
     this.id,
@@ -13,6 +14,7 @@ class BookModel {
     required this.email,
     required this.pdfPath,
     required this.description,
+    this.isFavorite = false,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class BookModel {
       'email': email,
       'pdfPath': pdfPath,
       'description': description,
+      'isFavorite': isFavorite ? 1 : 0,
     };
   }
 
@@ -34,6 +37,7 @@ class BookModel {
       email: map['email'],
       pdfPath: map['pdfPath'],
       description: map['description'],
+      isFavorite: map['isFavorite'] == 1,
     );
   }
 }

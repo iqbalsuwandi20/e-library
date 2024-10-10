@@ -21,6 +21,15 @@ class PdfViewerView extends GetView<PdfViewerController> {
         centerTitle: true,
         backgroundColor: Colors.blue[700],
         leading: SizedBox(),
+        actions: [
+          Container(
+            padding: EdgeInsets.all(10),
+            child: Image.asset(
+              "assets/icons/like.png",
+              height: 30,
+            ),
+          ),
+        ],
       ),
       body: PDFView(
         filePath: pdfPath,

@@ -30,6 +30,6 @@ class ProfilePageController extends GetxController {
   }
 
   String getAvatarUrl() {
-    return "https://ui-avatars.com/api/?name=${userName.value}+${userEmail.value}"; // Menghasilkan URL avatar
+    return "https://ui-avatars.com/api/?name=${userName.value}"; // Menghasilkan URL avatar
   }
 }
